@@ -1,6 +1,10 @@
 package Level_1;
 
+import Level_1.exceptions.EmptySaleException;
+import Level_1.model.Product;
+import Level_1.model.Sale;
 import java.util.Scanner;
+
 public class MainLevel1 {
 
     public static void main(String[] args) {

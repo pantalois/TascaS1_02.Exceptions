@@ -1,5 +1,6 @@
-package Level_1;
+package Level_1.model;
 
+import Level_1.exceptions.EmptySaleException;
 import java.util.ArrayList;
 import java.util.List;
 

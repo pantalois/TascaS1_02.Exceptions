@@ -1,4 +1,4 @@
-package Level_1;
+package Level_1.model;
 
 public class Product {
     private String name;
