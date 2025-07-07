@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class MainLevel2 {
 
     public static void main(String[] args) throws Exception {
-        Scanner menuScanner = new Scanner(System.in); // Separate scanner for menu choice
+        Scanner menuScanner = new Scanner(System.in);
         int choice;
 
         do {
@@ -27,7 +27,7 @@ public class MainLevel2 {
                 switch (choice) {
                     case 1:
                         byte byteValue = Input.readByte("Type a byte:");
-                        if (byteValue != -1) { // Check if readByte returned an error
+                        if (byteValue != -1) {
                             System.out.println("The byte value is: " + byteValue);
                         }
                         break;
