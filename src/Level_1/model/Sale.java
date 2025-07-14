@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Sale {
-    public List<Product> item;
-    public double totalPrice;
+    private List<Product> item;
+    private double totalPrice;
 
     public Sale() {
         this.item = new ArrayList<>();

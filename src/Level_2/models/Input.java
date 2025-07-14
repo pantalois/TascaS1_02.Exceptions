@@ -1,91 +1,99 @@
 package Level_2.models;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import Level_2.exceptions.*;
+import Level_2.exceptions.StringException;
 
 
 public class Input {
-    public static Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
 
-    public Input(){
-        scanner = new Scanner(System.in);
-    }
 
-    public static byte readByte(String messageToUser){
+    public static byte readByte(String messageToUser) {
         System.out.println(messageToUser);
-        try {
-            return scanner.nextByte();
-        }
-        catch(InputMismatchException e){
-            System.out.println("Error: the entered data is not a byte");
-            scanner.next();
-            return -1;
+        while (true) {
+            try {
+                return scanner.nextByte();
+            } catch (InputMismatchException e) {
+                System.out.println("Error: the entered data is not a byte, please, type a number between -128 and 127.");
+                scanner.next();
+            }
         }
     }
 
     public static int readInt(String messageToUser){
         System.out.println(messageToUser);
-        try {
-            return scanner.nextInt();
+        while (true) {
+            try {
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Formatting error.");
+                scanner.next();
+            }
         }
-        catch(InputMismatchException e){
-            System.out.println("Error: the entered data is not an int");
-            scanner.next();
-            return -1;
-        }
-
     }
+
     public static float readFloat(String messageToUser){
         System.out.println(messageToUser);
-        try {
-            return scanner.nextFloat();
-        } catch(InputMismatchException e) {
-            System.out.println("Error: The entered data is not a float.");
-            scanner.next();
-            return -1.0f;
+        while (true) {
+            try {
+                return scanner.nextFloat();
+            } catch (InputMismatchException e) {
+                System.out.println("Formatting error.");
+                scanner.next();
+            }
         }
     }
+
     public static double readDouble(String messageToUser){
         System.out.println(messageToUser);
-        try {
-            return scanner.nextDouble();
-        } catch(InputMismatchException e) {
-            System.out.println("Error: The entered data is not a double.");
-            scanner.next();
-            return -1.0;
+        while (true) {
+            try {
+                return scanner.nextDouble();
+            } catch (InputMismatchException e) {
+                System.out.println("Formatting error.");
+                scanner.next();
+            }
         }
     }
 
 
-    public static char readChar (String messageToUser)throws Exception{
+    public static char readChar (String messageToUser) throws CharException{
         System.out.println(messageToUser);
         String charValue = scanner.nextLine();
         if(charValue.length() == 1){
             return charValue.charAt(0);
         }
         else{
-            throw new Exception("Error: the entered data is not a char");
+            throw new CharException();
         }
     }
 
-    public static String readString (String messageToUser)throws Exception{
+    public static String readString (String messageToUser) throws Exception {
         System.out.println(messageToUser);
-        try{
-            return scanner.nextLine();
-        }catch(InputMismatchException e){
-            throw new Exception("Error: the entered data is not a string");
+        String response = "";
+        while (true) {
+            try {
+                response = scanner.nextLine();
+                if (response.isEmpty()) {
+                    throw new EmptyLineException();
+                }
+            } catch (InputMismatchException | EmptyLineException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
-    public static boolean readYesNo (String messageToUser)throws Exception{
+    public static boolean readYesNo (String messageToUser)throws YesNoException{
         System.out.println(messageToUser);
         String yesNo = scanner.nextLine();
-        if(yesNo.equals("No") || yesNo.equals("n") || yesNo.equals("N")){
+        if(yesNo.equals("n")){
             return false;
-        } else if (yesNo.equals("Yes")|| yesNo.equals("y") || yesNo.equals("Y")) {
+        } else if (yesNo.equals("s")) {
             return true;
         }
         else{
-            throw new Exception("Error: the entered data is not a boolean");
+            throw new YesNoException();
         }
     }
 

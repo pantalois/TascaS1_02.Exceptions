@@ -1,5 +1,7 @@
 package Level_2;
 import java.util.*;
+
+import Level_2.exceptions.EmptyLineException;
 import Level_2.models.Input;
 import java.util.Scanner;
 
@@ -27,27 +29,19 @@ public class MainLevel2 {
                 switch (choice) {
                     case 1:
                         byte byteValue = Input.readByte("Type a byte:");
-                        if (byteValue != -1) {
                             System.out.println("The byte value is: " + byteValue);
-                        }
                         break;
                     case 2:
                         int intValue = Input.readInt("Type an int:");
-                        if (intValue != -1) {
                             System.out.println("The int value is: " + intValue);
-                        }
                         break;
                     case 3:
                         float floatValue = Input.readFloat("Type a float:");
-                        if (floatValue != -1.0f) {
                             System.out.println("The float value is: " + floatValue);
-                        }
                         break;
                     case 4:
                         double doubleValue = Input.readDouble("Type a double:");
-                        if (doubleValue != -1.0) {
                             System.out.println("The double value is: " + doubleValue);
-                        }
                         break;
                     case 5:
                        try{
@@ -61,7 +55,7 @@ public class MainLevel2 {
                        try {
                            String stringValue = Input.readString("Type a string:");
                            System.out.println("The string is: \"" + stringValue + "\"");
-                       }catch (Exception e){
+                       }catch (InputMismatchException  | EmptyLineException e){
                            System.out.println(e.getMessage());
                        }
                         break;
