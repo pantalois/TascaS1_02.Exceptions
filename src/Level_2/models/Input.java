@@ -27,7 +27,7 @@ public class Input {
             try {
                 return scanner.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("Formatting error.");
+                System.out.println("Formatting error, please, type an int.");
                 scanner.next();
             }
         }
@@ -39,7 +39,7 @@ public class Input {
             try {
                 return scanner.nextFloat();
             } catch (InputMismatchException e) {
-                System.out.println("Formatting error.");
+                System.out.println("Formatting error, please type, a float.");
                 scanner.next();
             }
         }
@@ -49,55 +49,76 @@ public class Input {
         System.out.println(messageToUser);
         while (true) {
             try {
-                return scanner.nextDouble();
+                double value = scanner.nextDouble();
+                scanner.nextLine();
+                return value;
             } catch (InputMismatchException e) {
-                System.out.println("Formatting error.");
+                System.out.println("Formatting error, please, type a double.");
                 scanner.next();
             }
         }
     }
 
 
-    public static char readChar (String messageToUser) throws CharException{
+    public static char readChar (String messageToUser){
         System.out.println(messageToUser);
-        String charValue = scanner.nextLine();
-        if(charValue.length() == 1){
-            return charValue.charAt(0);
-        }
-        else{
-            throw new CharException();
-        }
-    }
-
-    public static String readString (String messageToUser) throws Exception {
-        System.out.println(messageToUser);
-        String response = "";
         while (true) {
             try {
-                response = scanner.nextLine();
-                if (response.isEmpty()) {
+                String charValue = scanner.nextLine();
+                if (charValue.isEmpty()) {
                     throw new EmptyLineException();
                 }
-            } catch (InputMismatchException | EmptyLineException e) {
+                if (charValue.length() == 1) {
+                    return charValue.charAt(0);
+                } else {
+                    throw new CharException();
+                }
+            } catch (CharException | EmptyLineException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    public static boolean readYesNo (String messageToUser)throws YesNoException{
+    public static String readString (String messageToUser) {
         System.out.println(messageToUser);
-        String yesNo = scanner.nextLine();
-        if(yesNo.equals("n")){
-            return false;
-        } else if (yesNo.equals("s")) {
-            return true;
-        }
-        else{
-            throw new YesNoException();
+        while (true) {
+            try {
+                String response = scanner.nextLine();
+                if (response.isEmpty()) {
+                    throw new EmptyLineException();
+                }
+                if (response.trim().length() == 1) {
+                    throw new StringException();
+                }
+                return response;
+            } catch (EmptyLineException | StringException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
 
-
-
+    public static boolean readYesNo (String messageToUser){
+        System.out.println(messageToUser);
+        while (true) {
+            try {
+                String yesNo = scanner.nextLine().trim().toLowerCase();
+                if (yesNo.isEmpty()) {
+                    throw new EmptyLineException();
+                }
+                if (yesNo.equals("n")) {
+                    return false;
+                } else if (yesNo.equals("s")) {
+                    return true;
+                } else {
+                    throw new YesNoException();
+                }
+            } catch (YesNoException | EmptyLineException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    public static void closeScanner(){
+        scanner.close();
+    }
 }

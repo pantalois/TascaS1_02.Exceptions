@@ -44,28 +44,16 @@ public class MainLevel2 {
                             System.out.println("The double value is: " + doubleValue);
                         break;
                     case 5:
-                       try{
                            char charValue = Input.readChar("Type a character:");
                            System.out.println("The character is: " + charValue);
-                       }catch (Exception e){
-                           System.out.println(e.getMessage());
-                       }
                         break;
                     case 6:
-                       try {
-                           String stringValue = Input.readString("Type a string:");
-                           System.out.println("The string is: \"" + stringValue + "\"");
-                       }catch (InputMismatchException  | EmptyLineException e){
-                           System.out.println(e.getMessage());
-                       }
+                        String stringValue = Input.readString("Type a string:");
+                        System.out.println("The string is: \"" + stringValue + "\"");
                         break;
                     case 7:
-                        try{
-                            boolean yesNoValue = Input.readYesNo("Type 'yes' or 'no':");
-                            System.out.println("You entered: " + (yesNoValue ? "Yes" : "No"));
-                        }catch (Exception e){
-                            System.out.println(e.getMessage());
-                        }
+                            boolean yesNoValue = Input.readYesNo("Type 's' or 'n':");
+                            System.out.println("You entered: " + (yesNoValue ? "s" : "n"));
                         break;
                     case 0:
                         System.out.println("Exiting program. Goodbye!");
@@ -81,6 +69,7 @@ public class MainLevel2 {
             }
         } while (choice != 0);
 
+        Input.closeScanner();
         menuScanner.close();
     }
 }
