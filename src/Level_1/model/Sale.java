@@ -4,59 +4,33 @@ import Level_1.exceptions.EmptySaleException;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.Scanner;
 
 public class Sale {
-    private List<Product> item;
-    private double totalPrice;
+    private final List<Product> items;
+    private double totalSalePrice;
 
     public Sale() {
-        this.item = new ArrayList<>();
-        this.totalPrice = 0;
+        this.items = new ArrayList<>();
+        this.totalSalePrice = 0;
     }
 
     public void addItem(Product product) {
-        this.item.add(product);
+        this.items.add(product);
     }
 
     public void calculateTotalPrice() throws EmptySaleException {
-        if (this.item.isEmpty()) {
-            throw new EmptySaleException();
+        if (this.items.isEmpty()) {
+            throw new EmptySaleException("To make a sale you must add products first");
         }
-        this.totalPrice = 0;
-        for (Product product : item) {
-            this.totalPrice += product.getPrice();
+        double totalPrice = 0;
+        for (Product product : items) {
+            totalPrice += product.getPrice();
         }
-        System.out.println("Total Price: " + this.totalPrice);
+        this.totalSalePrice = totalPrice;
     }
 
 
-    public void getPrice() throws EmptySaleException {
-        Scanner scanner = new Scanner(System.in);
-        boolean coincide = false;
-        if (this.item.isEmpty()) {
-            throw new EmptySaleException();
+    public double getTotalPrice(){
+        return this.totalSalePrice;
         }
-            while (!coincide) {
-                System.out.println("Of which product do you want to know the price? ");
-                for (Product product : item) {
-                    System.out.println(product.getName());
-                }
-                String productName = scanner.nextLine();
-                for (Product product : item) {
-                    if (productName.equals(product.getName())) {
-                        System.out.println("The product " + product.getName() + " has a price of " + product.getPrice() + "€");
-                        coincide = true;
-                        break;
-                    }
-                }
-                if (!coincide) {
-                    System.out.println("You choosed a product that is not added to sales");
-                }
-            }
-        }
-    }
-
-
-
-
+}

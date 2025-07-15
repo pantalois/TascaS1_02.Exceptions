@@ -3,61 +3,50 @@ package Level_1;
 import Level_1.exceptions.EmptySaleException;
 import Level_1.model.Product;
 import Level_1.model.Sale;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainLevel1 {
-
     public static void main(String[] args) {
 
-        boolean program = true;
-        Scanner scanner = new Scanner(System.in);
-        Sale sale = new Sale();
-        while (program) {
-            System.out.println("What do you want to do?\n" +
-                    "1.Add product\n" +
-                    "2.Calculate price of a single product\n" +
-                    "3.Calculate total price\n" +
-                    "4.Exit\n");
+        System.out.println("--- EMPTY SALE EXCEPTION ---");
 
-            try {
-                int choice = scanner.nextInt();
-                scanner.nextLine();
+        Sale emptySale = new Sale();
+        try {
+            System.out.println("Attempting to calculate the total of an empty sale...");
+            emptySale.calculateTotalPrice();
+        } catch (EmptySaleException e) {
+            System.out.println(e.getMessage());
+        }
 
-                switch (choice) {
-                    case 1:
-                        System.out.println("Enter product name: ");
-                        String name = scanner.nextLine();
-                        System.out.println("Enter product price: ");
-                        double price = scanner.nextDouble();
-                        sale.addItem(new Product(name, price));
-                        break;
-                    case 2:
-                        try {
-                            sale.getPrice();}
-                        catch (EmptySaleException | IndexOutOfBoundsException e) {
-                            System.out.println(e.getMessage());
-                        }
-                        break;
-                    case 3:
-                        try{
-                            sale.calculateTotalPrice();
-                        }
-                        catch (EmptySaleException | IndexOutOfBoundsException e) {
-                            System.out.println(e.getMessage());
-                        }
-                        break;
-                    case 4:
-                        program = false;
-                        break;
-                    default:
-                        System.out.println("Invalid choice, please between 1-4.");
-                }
-            }
-            catch (Exception e) {
-                System.out.println("Invalid input. Please enter a number (1-5).");
-                scanner.nextLine();
-            }
+        System.out.println();
+
+        Sale filledSale = new Sale();
+        filledSale.addItem(new Product("Milk", 1.20));
+        filledSale.addItem(new Product("Bread", 0.95));
+        filledSale.addItem(new Product("Apples (1kg)", 1.85));
+
+        try {
+            System.out.println("Calculating the total of a sale with products...");
+            filledSale.calculateTotalPrice();
+            System.out.println("The total price of the sale is: " + filledSale.getTotalPrice() + " €");
+        } catch (EmptySaleException e) {
+            System.out.println("Unexpected error: " + e.getMessage());
+        }
+
+        System.out.println("\n--- INDEX OUT OF BOUNDS EXCEPTION  ---");
+
+        List<String> itemsList = new ArrayList<>();
+        itemsList.add("Element A");
+        itemsList.add("Element B");
+
+        try {
+            System.out.println("The list has " + itemsList.size() + " elements.");
+            System.out.println("Attempting to access the element at index 10...");
+            String element = itemsList.get(10);
+            System.out.println("Element obtained: " + element);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
-
